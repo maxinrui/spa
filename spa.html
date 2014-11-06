@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>SPA Starter</title>
+
+    <link rel="stylesheet" href="css/spa.css">
+    <link rel="stylesheet" href="css/spa.shell.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jquery.uriAnchor.js"></script>
+
+    <script src="js/spa.js"></script>
+    <script src="js/spa.shell.js"></script>
+    <script>
+        $(function () {
+            spa.initModule($('#spa'));
+        });
+    </script>
+</head>
+
+<body>
+    <div id="spa">
+        <div class="spa-shell-head">
+            <div class="spa-shell-head-logo"></div>
+            <div class="spa-shell-head-acct"></div>
+            <div class="spa-shell-head-search"></div>
+        </div>
+        <div class="spa-shell-main">
+            <div class="spa-shell-main-nav"></div>
+            <div class="spa-shell-main-content"></div>
+        </div>
+        <div class="spa-shell-foot"></div>
+        <div class="spa-shell-chat"></div>
+        <div class="spa-shell-modal"></div>
+    </div>
+</body>
+
+</html>
