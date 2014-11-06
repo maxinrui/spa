@@ -17,13 +17,11 @@
     vars : false
 */
 
-/*global $ */
+/*global $ spa */
 
 var spa = (function () {
     var initModule = function ($container) {
-        $container.html(
-            
-        );
+        spa.shell.initModule($container);
     };
 
     return {
