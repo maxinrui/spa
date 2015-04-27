@@ -23,6 +23,12 @@ spa.shell = (function () {
     // Begin module scope variables
     var
         configMap = {
+            anchor_schema_map: {
+                chat : {
+                    open : true,
+                    closed : true
+                }
+            },
             main_html: String() + '<div class="spa-shell-head">' + '<div class="spa-shell-head-logo"></div>' + '<div class="spa-shell-head-acct"></div>' + '<div class="spa-shell-head-search"></div>' + '</div>' + '<div class="spa-shell-main">' + '<div class="spa-shell-main-nav"></div>' + '<div class="spa-shell-main-content"></div>' + '</div>' + '<div class="spa-shell-foot"></div>' + '<div class="spa-shell-chat"></div>' + '<div class="spa-shell-modal"></div>',
 
             chat_extend_time: 1000,
@@ -34,14 +40,22 @@ spa.shell = (function () {
         },
         stateMap = {
             $container: null,
-            is_chat_retracted: true
+            is_chat_retracted: true,
+            anchor_map = {}
         },
         jqueryMap = {},
 
-        setJqueryMap, toggleChat, onClickChat, initModule;
+        setJqueryMap, toggleChat, onClickChat, initModule, copyAnchorMap , changeAnchorPart, onHashchange;
     // End Module Scope variables
 
     // Begin DOM methods
+    // Return copy of stored anchor map; minimizes overhead
+    copyAnchorMap = function () {
+        return $.extend(true, {}, stateMap.anchor_map);
+    };
+             
+             
+             
     // Begin DOM methos /setJqueryMap/
     setJqueryMap = function () {
         var $container = stateMap.$container;
@@ -69,7 +83,7 @@ spa.shell = (function () {
     // 
     toggleChat = function (do_extend, callback) {
         var
-            px_chat_ht = jqueryMap.$chat.height();
+            px_chat_ht = jqueryMap.$chat.height(),
         is_open = px_chat_ht === configMap.chat_extend_height,
         is_closed = px_chat_ht === configMap.chat_retract_height,
         is_sliding = !is_open && !is_closed;
@@ -118,7 +132,11 @@ spa.shell = (function () {
 
     // Begin event handlers
     onClickChat = function (event) {
-        toggleChat(stateMap.is_chat_retracted);
+        if (toggleChat(stateMap.is_chat_retracted)) {
+            $.uriAnchor.setAnchor({
+                chat : ( stateMap.is_chat_retracted ? 'open' : 'closed')
+            });
+        }
         return false;
     };
     // End event handlers
